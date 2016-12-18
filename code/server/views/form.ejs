@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <h2>GET数据</h2>
+    <p><%- JSON.stringify(query) %></p>
+    <h2>POST数据</h2>
+    <p><%- JSON.stringify(body) %></p>
+    <h2>file数据</h2>
+    <p><%- JSON.stringify(files) %></p>
+  </body>
+</html>
