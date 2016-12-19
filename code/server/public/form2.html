@@ -5,13 +5,14 @@
     <title>表单测试网页</title>
 </head>
 <body>
-    <!--
-    <form action="/form" method="post" enctype="multipart/form-data">
-    -->
     <form action="/form" method="post" enctype="multipart/form-data">
         <input type="text" name="username" value="" />
-        <input type="text" name="password" value="" />
+        <input type="password" name="password" value="" />
         <input type="file" name="avatar" value="" />
+        <input type="date" name="birth" value="" />
+        <input type="hidden" name="hide_message" value="siabian.com" />
+        性别 男<input type="radio" name="r1" value="nan" checked="checked" />
+        女<input type="radio" name="r1" value="nv" />
         <button type="submit">提交</button>
     </form>
 </body>
