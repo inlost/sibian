@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position 练习</title>
+    <style type="text/css" media="all">
+        .wrapper{
+            position:relative;
+            top:200px;
+        }
+        .wrapper,.wrapper2,.wrapper3{
+            border:1px solid yellow;
+        }
+        .wrapper3{
+            position:relative;
+        }
+        .div1, .div2{
+            margin:40px 0;
+        }
+        .div1{
+            float:left;
+            background:red;
+        }
+        .div2{
+            background:green;
+            overflow:hidden;
+        }
+
+        .divf1,.divf2{
+            height:100px;
+            width:100px;
+            background:rgba(0,0,255,.3);
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="wrapper2">
+            <div class="wrapper3">
+                <div class="div1">我是一个</div>
+                <div class="div2">
+                    <div class="divf1"></div>
+                    <div class="divf2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
