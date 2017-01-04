@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1></h1>
+    <p></p>
+
+    <script type="text/javascript" charset="utf-8">
+        var titleElm = document.querySelector('h1');
+        var contentElm = document.querySelector('p');
+
+        var post = null;
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', '/post', true);
+        xhr.send(null);
+        xhr.onreadystatechange = function(res){
+            if(xhr.readyState === 4){
+                post = JSON.parse(xhr.responseText);
+                titleElm.innerHTML = post.title;
+                contentElm.innerHTML = post.content;
+                console.log(post);
+            }
+        }
+    </script>
+</body>
+</html>

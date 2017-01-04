@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播测试</title>
+    <style type="text/css" media="all">
+        ul,li{
+            padding:0;
+            margin:0;
+        }
+        .show-border{
+            border:1px solid red;
+        }
+        .wrapper, li{
+            width:400px;
+            height:200px;
+        }
+        .wrapperBig{
+            width:800px;
+            height:400px;
+        }
+        .wrapper{
+            overflow:hidden;
+        }
+        ul{
+            width:400%;
+            list-style:none;
+            position:relative;
+            left:-200%;
+        }
+        li{
+            float:left;
+        }
+        .blue{
+            background:blue;
+        }
+        .green{
+            background:green;
+        }
+        .yellow{
+            background:yellow;
+        }
+        .pink{
+            background:pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper show-border">
+        <ul id="list">
+            <li class="blue"></li>
+            <li class="green"></li>
+            <li class="yellow"></li>
+            <li class="pink"></li>
+        </ul>
+    </div>
+    <script src="test.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

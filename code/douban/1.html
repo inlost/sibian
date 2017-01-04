@@ -5,47 +5,179 @@
         <link rel="stylesheet" href="1.css" media="all" />
         <meta name="viewport" content="width=device-width" />
         <title>豆瓣</title>
+        <style type="text/css" media="all">
+            ul,li,h3,h2,p{
+                margin:0;
+                padding:0;
+            }
+            .show-border{
+                border:1px solid red;
+            }
+            .fl{
+                float:left;
+            }
+            .wrapper{
+                width:950px;
+                margin:0 auto;
+                overflow:hidden;
+                font-size:12px;
+                color:rgb(153,153,153);
+            }
+            .main-content{
+                width:655px;
+            }
+            .sidebar{
+                width:265px;
+            }
+            .albums{
+                width:350px;
+            }
+            .posts{
+                width:275px;
+            }
+            .album-list{
+                overflow:hidden;
+                margin-top:10px;
+            }
+            .album-list li{
+                float:left;
+                width:50%;
+                padding-right:10px;
+                margin:0 auto 10px;
+                box-sizing:border-box;
+            }
+            .album-list li a{
+                display:inline-block;
+                margin-right:10px;
+            }
+            .album-list li h3{
+                margin-top:6px;
+                font-size:12px;
+                color:rgb(153,153,153);
+            }
+            .album-list li img{
+                width:170px;
+                height:170px;
+            }
+            li{
+                list-style:none;
+            }
+            h2{
+                font-size:15px;
+                color:rgb(0,119,34);
+            }
+            a{
+                color:rgb(51,119,170);
+                text-decoration:none;
+            }
+            .posts h3,h2 span{
+                font-size:12px;
+            }
+            .posts h3, .posts-list p{
+                line-height:19.4px;
+            }
+            .posts ul{
+                margin:0 20px;
+            }
+            .posts-list li{
+                margin-top:12px;
+            }
+            .posts-list p{
+                color:rgb(102,102,102);
+                margin:10px 0;
+            }
+        </style>
     </head>
     <body>
-        <h1><img src="logo_db.png" /></h1>
-        <input type="text" placeholder="书籍、电影" value="" />
-        <input type="submit" name="" id="" value="" />
-        <nav>
-            <ul>
-                <li>
-                    <a href="/" style="color:blue;" id="read" class="font-green">读书</a>
-                </li>
-                <li><a href="#" class="font-big ">电影</a></li>
-                <li class="nb"><a href="#">音乐</a></li>
-                <li><a href="#" class="font-big">小组</a></li>
-                <li><a href="#">同城</a></li>
-                <li><a href="#" class="font-big">FM</a></li>
-                <li><a href="#">东西</a></li>
-                <li><a href="#" class="font-big">市集</a></li>
-            </ul>
-        </nav>
-        <img src="lbg.png" alt="app" />
-        <div>
-            <h2>豆瓣4.0</h2>
-            <span>我们的精神角落</span>
-            <a href="#" class="font-big">下载豆瓣app</a>
-        </div>
-        <div>
-            <form action="/" method="post">
-                <div>
-                    <input type="text" placeholder="邮箱/手机号" name="" id="" value="" />
-                    <input type="password" placeholder="密码" name="" id="" value="" />
-                    <button type="submit">登陆豆瓣</button>
-                    <a href="#">注册账号</a>
-                </div>
-                <div>
-                    <label for="rmdMe"> <input type="checkbox" name="" id="rmdMe" value="" />   记住我</label>
-                    <ul>
-                        <li><a href="#">微信</a></li>
-                        <li><a href="#">微博</a></li>
+        <div class="wrapper ">
+            <div class="main-content fl ">
+                <h2>热点内容……<span>(<a href="#">更多</a>)</span></h2>
+                <div class="albums fl">
+                    <ul class="album-list">
+                        <li>
+                            <img src="https://img3.doubanio.com/view/photo/albumcover/public/p2387051011.jpg" alt="混沌" />
+                            <h3><a href="#">混沌</a> 52张照片</h3>
+                        </li>
+                        <li>
+                            <img src="https://img3.doubanio.com/view/photo/albumcover/public/p2405358703.jpg" alt="混沌" />
+                            <h3><a href="#">混沌</a></h3>
+                        </li>
+                        <li>
+                            <img src="https://img3.doubanio.com/view/photo/albumcover/public/p566539701.jpg" alt="混沌" />
+                            <h3><a href="#">混沌</a></h3>
+                        </li>
+                        <li>
+                            <img src="https://img3.doubanio.com/view/photo/thumb/public/p2407088492.jpg" alt="混沌" />
+                            <h3><a href="#">混沌</a></h3>
+                        </li>
                     </ul>
                 </div>
-            </form>
+                <div class="posts fl">
+                    <ul class="posts-list">
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                            <div>
+                                <span>不懂点心理的日记</span>
+                            </div>
+                            <p>他为什么那么讨厌那份工作，却又像工作狂一般地去做工作？ 这是一个朋友的疑惑。 ...</p>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">明明恨他，为何反而对他更好？</a></h3>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar fl">
+                <a href="#"><img src="https://img5.doubanio.com/img/files/file-1431585796.jpg" alt="一刻" /></a>
+                <h2>热点内容……<span>(<a href="#">更多</a></span></h2>
+                <ul>
+                    <li>
+                        <a href="#">午后的一张照片</a>
+                        <div>
+                            <span>时间：11月30日 - 1月30日</span>
+                            <span>424人参加</span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">午后的一张照片</a>
+                        <div>
+                            <span>时间：11月30日 - 1月30日</span>
+                            <span>424人参加</span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">午后的一张照片</a>
+                        <div>
+                            <span>时间：11月30日 - 1月30日</span>
+                            <span>424人参加</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        </body>
+    </body>
 </html>

@@ -4,38 +4,26 @@
     <meta charset="UTF-8">
     <title></title>
     <style type="text/css" media="all">
-        @-webkit-keyframes glow {
-            0% {
-                -webkit-box-shadow: 0 0 12px rgba(72, 106, 170, 0.5);
-                border-color: rgba(160, 179, 214, 0.5);         
-                width:300px;
-            }
-            100% {
-                -webkit-box-shadow: 0 0 12px rgba(72, 106, 170, 1.0), 0 0 18px rgba(0, 140, 255, 1.0);
-                border-color: rgba(160, 179, 214, 1.0); 
-                width:500px;
-            }
-        }
         .anim_image {
             padding:3px;
-            border:1px solid #beceeb;
+            border:4px solid red;
+            border-radius:12px;
             width:300px;
             background-color:white;
-            -moz-box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
-            -webkit-box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
-            box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
         }
-        .anim_image:hover {
-            background-color:#f0f3f9;
-            -webkit-animation-name: glow;
-            -webkit-animation-duration: 1s;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-            -webkit-animation-timing-function: ease-in-out;
+        div{
+            height:800px;
+            width:800px;
+            background-color:green;
+            border:80px solid yellow;
+            border-left-color:red;
         }
-    </style>
+       </style>
 </head>
 <body>
     <img class="anim_image" src="14.jpeg" alt="girl" />
+    <div>
+        
+    </div>
 </body>
 </html>

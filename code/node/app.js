@@ -5,13 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
-
 var index = require('./routes/index');
-var from = require('./routes/form');
 var users = require('./routes/users');
-var post = require('./routes/post');
 
 var app = express();
 
@@ -25,11 +20,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('node-sass-middleware')({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: true,
+  sourceMap: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/post', post);
-app.use('/form', multipartMiddleware, from);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

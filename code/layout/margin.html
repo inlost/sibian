@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" media="all">
+        html,body,div{
+            height:100%;
+        }
+        .left,.right{
+            float:left;
+            height:100%;
+            width:200px;
+            background:yellow;
+            top:0;
+        }
+        .main{
+            float:left;
+            width:100%;
+            background:green;
+        }
+        .inner{
+            margin:0 200px;
+            background:red;
+        }
+        .left{
+            left:0;
+            margin-left:-100%;
+        }
+        .right{
+            right:0;
+            margin-left:-200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <div class="inner"></div>
+        </div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

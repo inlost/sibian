@@ -8,11 +8,28 @@
     <!--
     <form action="/form" method="post" enctype="multipart/form-data">
     -->
-    <form action="/form" method="post" enctype="multipart/form-data">
+    <form action="/form" method="get" enctype="multipart/form-data">
         <input type="text" name="username" value="" />
         <input type="text" name="password" value="" />
-        <input type="file" name="avatar" value="" />
         <button type="submit">提交</button>
     </form>
+    <div>
+        
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        var inputElms = document.getElementsByTagName('input')
+        var subElm = document.getElementsByTagName('form')[0];
+subElm.onsubmit = function(){
+    var data = {
+        username: inputElms[0].value,
+        password: inputElms[1].value
+    }
+
+    xhr.send(null)
+
+        console.log(data);
+
+}
+    </script>
 </body>
 </html>
