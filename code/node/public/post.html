@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post title</title>
+    <link rel="stylesheet" href="/stylesheets/github-markdown.css" />
+</head>
+<body>
+    <h1>标题</h1>
+    <div class="markdown-body">
+        内容
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        //获取查询字符串并转换成数组
+        var arrQuery = window.location.search
+            .replace('?', '')
+            .split('&');
+        //保存处理好的查询参数键值对
+        var queryParams = {};
+        //ajax请求地址
+        var strUrl = '';
+
+        var xhr = new XMLHttpRequest();
+        var divElm = document.querySelector('div')
+        var titleEml = document.querySelector('h1')
+
+        //格式化参数列表
+        arrQuery.forEach((item, index, list) => {
+            var tmpArr = item.split('=');
+
+            queryParams[tmpArr[0]] = tmpArr[1]
+        })
+        strUrl = `/post?p=${queryParams.p}`;
+
+        titleEml.innerText = decodeURIComponent(queryParams.p);
+
+        //向服务器请求日志内容
+        xhr.open('GET', strUrl);
+        xhr.send(null);
+        xhr.onreadystatechange = (rst) => {
+
+            if(xhr.readyState === 4){
+                divElm.innerHTML = xhr.responseText;
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -11,7 +11,9 @@
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
+    "markdown-to-json": "^0.4.2",
     "morgan": "~1.7.0",
+    "node-markdown": "^0.1.1",
     "node-sass-middleware": "0.9.8",
     "serve-favicon": "~2.3.0"
   }
