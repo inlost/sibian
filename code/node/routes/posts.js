@@ -26,7 +26,25 @@ router.post('/', function(req, res, next) {
 
     strHtml = md(req.body.content)
 
-    res.send(strHtml)
+    if(req.body.type === 'save'){
+        const src = path.join(process.cwd(), 'md', `${req.body.title}.md`);
+        let rst = {};
+
+        if(typeof req.body.title === 'undefined' || !req.body.title.length){
+            rst = {
+                success : false,
+                errorMessage: '标题不能为空'
+            }
+            return res.send(rst);
+        }
+
+        fs.writeFile(src, req.body.content, function(err){
+            rst.success = err ? false : true;
+            res.send(rst);
+        });
+    }else{
+        res.send(strHtml);
+    }
 })
 
 module.exports = router;

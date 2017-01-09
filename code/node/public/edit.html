@@ -10,7 +10,7 @@
             border:1px solid #999;
             margin-top:10px;
         }
-        .input-title{
+        .post-title{
             width:50%;
         }
         .priview{
@@ -22,7 +22,7 @@
 <body>
     <div class="wrapper">
         <div class="inputs">
-            <input type="text" name="post-title" class="input-title" value="" placeholder="请输入博客标题" />
+            <input type="text" name="post-title" class="post-title" value="" placeholder="请输入博客标题" />
             <textarea name="textEditor" id="textEditor" placeholder="请输入博客内容"></textarea>
             <div class="priview"></div>
         </div>
@@ -33,42 +33,85 @@
     </div>
 
 <script type="text/javascript" charset="utf-8">
-var postContenElm = document.getElementById('textEditor')
-var btnSaveElm = document.querySelector('.btn-save')
-var priviewElm = document.querySelector('.priview')
-var post = {
+const postContenElm = document.getElementById('textEditor');
+const postTitleElm = document.querySelector('.post-title');
+const btnSaveElm = document.querySelector('.btn-save');
+const priviewElm = document.querySelector('.priview');
+console.log(postTitleElm);
+const post = {
     title: '',
     content: ''
 }
 
 btnSaveElm.addEventListener('click', function(){
+    const checkRst = checkInput('save');
+    if(checkInput().isPassInputCheck){
+        let saveStatus = null;
+        sendRequest(`content=${post.content}&title=${post.title}&type=save`, function(reponse){
+            saveStatus = JSON.parse(reponse);
+
+            if(!saveStatus.success){
+                alert(saveStatus.errorMessage);
+            }else{
+                location.pathname = '/list.html';
+            }
+        });
+    }
+});
+
+let timmer = 0;
+postContenElm.addEventListener('input', function(){
+    const checkRst = checkInput();
+
+    clearTimeout(timmer);
+    timmer = setTimeout(function(){
+
+        if(checkRst.isPassInputCheck && checkRst.isChange){
+            sendRequest(`content=${post.content}`, function(reponse){
+                priviewElm.innerHTML = reponse;
+            });
+        }
+    }, 400);
+});
+
+function checkInput(type='updatePriview'){
+    const rst = {
+        isChange: false,
+        isPassInputCheck: false
+    };
+
+    const oldContent = post.content;
+
     getInput();
+    rst.isChange = oldContent !== post.content;
 
     if(!post.content.length){
-        return alert('博客内容不能为空')
+        rst.isPassInputCheck = false;
+    }else{
+        rst.isPassInputCheck = true;
     }
 
-    getPriview(post.content, function(reponse){
-        console.log(priviewElm)
-        priviewElm.innerHTML = reponse
-        console.log(reponse)
-    })
-})
+    if(type === 'save' && rst.isPassInputCheck && !post.content.length){
+        rst.isPassInputCheck = false;
+    }
+
+    return rst;
+}
 
 function getInput(){
     post.content = postContenElm.value;
+    post.title = postTitleElm.value;
 }
 
-function getPriview(strIn, callBack){
+function sendRequest(data, callBack){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/post', true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send('content='+strIn);
+    xhr.send(data);
     xhr.onreadystatechange = function(){
         xhr.readyState === 4 && callBack(xhr.responseText);
     }
 }
-
 
 </script>
 </body>
