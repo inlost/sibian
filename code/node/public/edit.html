@@ -37,7 +37,6 @@ const postContenElm = document.getElementById('textEditor');
 const postTitleElm = document.querySelector('.post-title');
 const btnSaveElm = document.querySelector('.btn-save');
 const priviewElm = document.querySelector('.priview');
-console.log(postTitleElm);
 const post = {
     title: '',
     content: ''
@@ -45,7 +44,7 @@ const post = {
 
 btnSaveElm.addEventListener('click', function(){
     const checkRst = checkInput('save');
-    if(checkInput().isPassInputCheck){
+    if(!checkRst.isPassInputCheck){
         let saveStatus = null;
         sendRequest(`content=${post.content}&title=${post.title}&type=save`, function(reponse){
             saveStatus = JSON.parse(reponse);
@@ -64,14 +63,23 @@ postContenElm.addEventListener('input', function(){
     const checkRst = checkInput();
 
     clearTimeout(timmer);
-    timmer = setTimeout(function(){
+    console.log(`clear timmer ${timmer}`);
 
+    /*
+        定时器
+        设置定时器 的时间
+        定时器执行 的时间
+        清除定时器 的时间
+    */
+
+    timmer = setTimeout(function(){
         if(checkRst.isPassInputCheck && checkRst.isChange){
             sendRequest(`content=${post.content}`, function(reponse){
                 priviewElm.innerHTML = reponse;
             });
         }
     }, 400);
+    console.log(`set timmer ${timmer}`);
 });
 
 function checkInput(type='updatePriview'){
@@ -91,7 +99,7 @@ function checkInput(type='updatePriview'){
         rst.isPassInputCheck = true;
     }
 
-    if(type === 'save' && rst.isPassInputCheck && !post.content.length){
+    if(type === 'save' && rst.isPassInputCheck && !post.title.length){
         rst.isPassInputCheck = false;
     }
 

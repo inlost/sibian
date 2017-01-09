@@ -24,25 +24,47 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var strHtml = '';
 
-    strHtml = md(req.body.content)
+    //获取到浏览器发送的博客内容[conetend],并渲染成HTML
+    if(typeof req.body.content !== 'undefined'){
+        strHtml = md(req.body.content)
+    }
 
+    //判断是保存还是预览
     if(req.body.type === 'save'){
+        //保存逻辑
+
         const src = path.join(process.cwd(), 'md', `${req.body.title}.md`);
         let rst = {};
 
         if(typeof req.body.title === 'undefined' || !req.body.title.length){
             rst = {
+                //是否成功
                 success : false,
+                //错误信息
                 errorMessage: '标题不能为空'
+            }
+            return res.send(rst);
+        }
+        if(typeof req.body.content === 'undefined' || !req.body.content.length){
+            rst = {
+                //是否成功
+                success : false,
+                //错误信息
+                errorMessage: '内容不能为空'
             }
             return res.send(rst);
         }
 
         fs.writeFile(src, req.body.content, function(err){
-            rst.success = err ? false : true;
+            if(err){
+                rst.success = false;
+            }else{
+                rst.success = true;
+            }
             res.send(rst);
         });
     }else{
+        //预览逻辑
         res.send(strHtml);
     }
 })
