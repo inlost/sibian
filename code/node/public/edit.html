@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" media="all">
+        textarea{
+            width:50%;
+            height:200px;
+            border:1px solid #999;
+            margin-top:10px;
+        }
+        .input-title{
+            width:50%;
+        }
+        .priview{
+            float:right;
+            width:49%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inputs">
+            <input type="text" name="post-title" class="input-title" value="" placeholder="请输入博客标题" />
+            <textarea name="textEditor" id="textEditor" placeholder="请输入博客内容"></textarea>
+            <div class="priview"></div>
+        </div>
+        <div class="func-btns">
+            <a href="#" class="btn-save">保存</a>
+            <a href="list.html">取消</a>
+        </div>
+    </div>
+
+<script type="text/javascript" charset="utf-8">
+var postContenElm = document.getElementById('textEditor')
+var btnSaveElm = document.querySelector('.btn-save')
+var priviewElm = document.querySelector('.priview')
+var post = {
+    title: '',
+    content: ''
+}
+
+btnSaveElm.addEventListener('click', function(){
+    getInput();
+
+    if(!post.content.length){
+        return alert('博客内容不能为空')
+    }
+
+    getPriview(post.content, function(reponse){
+        console.log(priviewElm)
+        priviewElm.innerHTML = reponse
+        console.log(reponse)
+    })
+})
+
+function getInput(){
+    post.content = postContenElm.value;
+}
+
+function getPriview(strIn, callBack){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/post', true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send('content='+strIn);
+    xhr.onreadystatechange = function(){
+        xhr.readyState === 4 && callBack(xhr.responseText);
+    }
+}
+
+
+</script>
+</body>
+</html>

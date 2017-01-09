@@ -4,7 +4,7 @@ var md = require('node-markdown').Markdown;
 var fs = require('fs');
 var path = require('path');
 
-/* GET users listing. */
+//读取本地markdown，渲染成html返回
 router.get('/', function(req, res, next) {
     var strHtml = '';
     var strFile = '';
@@ -19,5 +19,14 @@ router.get('/', function(req, res, next) {
         res.send(strHtml);
     });
 });
+
+//通过post过来的markdown字符串，渲染成html返回
+router.post('/', function(req, res, next) {
+    var strHtml = '';
+
+    strHtml = md(req.body.content)
+
+    res.send(strHtml)
+})
 
 module.exports = router;
