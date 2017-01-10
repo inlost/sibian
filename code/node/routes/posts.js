@@ -3,13 +3,14 @@ var router = express.Router();
 var md = require('node-markdown').Markdown;
 var fs = require('fs');
 var path = require('path');
+var conf = require('../config');
 
 //读取本地markdown，渲染成html返回
 router.get('/', function(req, res, next) {
     var strHtml = '';
     var strFile = '';
     var filename = req.query.p;
-    var src = path.join(process.cwd(), 'md', `${filename}.md`);
+    var src = path.join(process.cwd(), conf.markdownDir, `${filename}.md`);
 
     fs.readFile(src, 'utf-8', function(err, data){
         if(err){
@@ -33,7 +34,7 @@ router.post('/', function(req, res, next) {
     if(req.body.type === 'save'){
         //保存逻辑
 
-        const src = path.join(process.cwd(), 'md', `${req.body.title}.md`);
+        const src = path.join(process.cwd(), conf.markdownDir, `${req.body.title}.md`);
         let rst = {};
 
         if(typeof req.body.title === 'undefined' || !req.body.title.length){
