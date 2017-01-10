@@ -70,4 +70,22 @@ router.post('/', function(req, res, next) {
     }
 })
 
+/**
+ * @url       /post
+ * @method    DELETE
+ * @params
+ *  q{string} 文件名
+ */
+
+router.delete('/', function(req, res, next){
+    var filename = req.body.p;
+    var src = path.join(process.cwd(), conf.markdownDir, `${filename}.md`);
+
+    fs.unlink(src, function(err){
+        var rst = {};
+        rst.success = err ? false : true;
+        res.send(rst)
+    });
+})
+
 module.exports = router;
