@@ -5,6 +5,21 @@ var fs = require('fs');
 var path = require('path');
 var conf = require('../config');
 
+
+/**
+ * 获取博客
+ * @url       /post
+ * @method    GET
+ * @params
+ *  p{string} 博客标题
+ * @return
+ *  success{boolean} 是否保存成功 true|false
+ *  errorMessage{string} 错误消息
+ *  data
+ *      strHtml 博客正文的HTML
+ *      strMd 博客正文的markdown字符串
+ */
+
 //读取本地markdown，渲染成html返回
 router.get('/', function(req, res, next) {
     var strHtml = '';

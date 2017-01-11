@@ -45,6 +45,7 @@
             var rst = null;
             if(xhr.readyState === 4){
                 rst = JSON.parse(xhr.responseText);
+                console.log(rst);
                 if(rst.success){
                     divElm.innerHTML = rst.data.strHtml;
                 }else{
