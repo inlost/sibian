@@ -11,13 +11,24 @@ router.get('/', function(req, res, next) {
     var strFile = '';
     var filename = req.query.p;
     var src = path.join(process.cwd(), conf.markdownDir, `${filename}.md`);
+    var rst = {
+        success: false,
+        errorMessage: '',
+        data: {}
+    };
 
     fs.readFile(src, 'utf-8', function(err, data){
         if(err){
-            return res.send('服务器开小差了.');
+            rst.errorMessage = err.Error;
+            return res.send(rst);
         }
         strHtml = md(data);
-        res.send(strHtml);
+        rst.success = true;
+        rst.data = {
+            strHtml: strHtml,
+            strMd: data
+        }
+        res.send(rst);
     });
 });
 

@@ -42,22 +42,38 @@
         xhr.open('GET', strUrl);
         xhr.send(null);
         xhr.onreadystatechange = (rst) => {
-
+            var rst = null;
             if(xhr.readyState === 4){
-                divElm.innerHTML = xhr.responseText;
+                rst = JSON.parse(xhr.responseText);
+                if(rst.success){
+                    divElm.innerHTML = rst.data.strHtml;
+                }else{
+                    alert(rst.errorMessage)
+                }
             }
         }
 
     var btnDelete = document.querySelector('.btn-delete');
     btnDelete.addEventListener('click', function(e){
+        //阻止a元素的默认事件
         e.preventDefault();
+
+        //获取XMLHttpRequest的实例
         var xhr = new XMLHttpRequest();
+
+        //open(method-http方法, url-后端服务地址)
         xhr.open('DELETE', '/post');
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        //send(要提交到后端的数据)
         xhr.send( `p=${queryParams.p}` )
+
+        //绑定ajax回调函数
         xhr.onreadystatechange = function(){
             var rst = null;
+            //收到服务器响应
             if(xhr.readyState === 4){
+                //把服务器返回的东西转换成对象并保存到变量rst里
                 rst = JSON.parse(xhr.responseText);
                 if(rst.success){
                     location.pathname = '/list.html';
