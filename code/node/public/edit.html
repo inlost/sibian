@@ -44,7 +44,7 @@ const post = {
 
 btnSaveElm.addEventListener('click', function(){
     const checkRst = checkInput('save');
-    if(!checkRst.isPassInputCheck){
+    if(checkRst.isPassInputCheck){
         let saveStatus = null;
         sendRequest(`content=${post.content}&title=${post.title}&type=save`, function(reponse){
             saveStatus = JSON.parse(reponse);

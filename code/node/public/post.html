@@ -7,6 +7,10 @@
 </head>
 <body>
     <h1>标题</h1>
+    <ul>
+        <li><a href="http://www.baidu.com" class="btn-delete">删除</a></li>
+        <li><a href="#">编辑</a></li>
+    </ul>
     <div class="markdown-body">
         内容
     </div>
@@ -44,6 +48,25 @@
             }
         }
 
+    var btnDelete = document.querySelector('.btn-delete');
+    btnDelete.addEventListener('click', function(e){
+        e.preventDefault();
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', '/post');
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send( `p=${queryParams.p}` )
+        xhr.onreadystatechange = function(){
+            var rst = null;
+            if(xhr.readyState === 4){
+                rst = JSON.parse(xhr.responseText);
+                if(rst.success){
+                    location.pathname = '/list.html';
+                }else{
+                    alert('删除失败')
+                }
+            }
+        }
+    })
     </script>
 </body>
 </html>

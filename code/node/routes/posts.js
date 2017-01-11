@@ -21,6 +21,20 @@ router.get('/', function(req, res, next) {
     });
 });
 
+/**
+ * 编辑博客
+ * @url       /post
+ * @method    POST
+ * @params
+ *  type{string} 操作类型'save'
+ *  title{string} 博客标题
+ *  content{string} 博客能容
+ * @return
+ *  success{boolean} 是否保存成功 true|false
+ *  errorMessage{string} 错误消息
+ */
+
+
 //通过post过来的markdown字符串，渲染成html返回
 router.post('/', function(req, res, next) {
     var strHtml = '';
@@ -74,7 +88,7 @@ router.post('/', function(req, res, next) {
  * @url       /post
  * @method    DELETE
  * @params
- *  q{string} 文件名
+ *  p{string} 文件名
  */
 
 router.delete('/', function(req, res, next){
