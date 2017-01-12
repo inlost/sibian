@@ -9,7 +9,7 @@
     <h1>标题</h1>
     <ul>
         <li><a href="http://www.baidu.com" class="btn-delete">删除</a></li>
-        <li><a href="#">编辑</a></li>
+        <li><a class="btn-edit" href="#">编辑</a></li>
     </ul>
     <div class="markdown-body">
         内容
@@ -85,6 +85,12 @@
             }
         }
     })
+
+
+    //设置编辑的url
+    var linkUrl = '/edit.html?p=' + queryParams.p;
+    var editLinkElm = document.querySelector('.btn-edit')
+    editLinkElm.href = linkUrl;
     </script>
 </body>
 </html>

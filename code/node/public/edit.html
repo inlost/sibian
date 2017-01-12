@@ -121,6 +121,36 @@ function sendRequest(data, callBack){
     }
 }
 
+
+
+    //获取查询字符串并转换成数组
+    var arrQuery = window.location.search
+        .replace('?', '')
+        .split('&');
+    //保存处理好的查询参数键值对
+    var queryParams = {};
+    //格式化参数列表
+    arrQuery.forEach((item, index, list) => {
+        var tmpArr = item.split('=');
+        queryParams[tmpArr[0]] = tmpArr[1]
+    })
+    if(queryParams.hasOwnProperty('p')){
+        postTitleElm.value =  decodeURI( queryParams.p );
+
+        var xhr = new XMLHttpRequest();
+        var url = '/post?p=' + queryParams.p;
+        xhr.open('GET', url)
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                let rst = xhr.responseText;
+                rst = JSON.parse(rst);
+                postContenElm.value = rst.data.strMd;
+                priviewElm.innerHTML = rst.data.strHtml;
+            }
+        }
+        xhr.send();
+
+    }
 </script>
 </body>
 </html>
