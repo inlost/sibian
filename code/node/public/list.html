@@ -28,7 +28,7 @@
                 listObj.htmls.push('<ul>');
 
                 listObj.list.forEach((item, index, list) => {
-                    listObj.htmls.push(`<li><a href="/post.html?p=${item}">${item}</a></li>`)
+                    listObj.htmls.push(`<li><a href="/post.html?p=${item.name}">${item.name}---${item.create}</a></li>`)
                 });
 
                 listObj.htmls.push('</ul>');
