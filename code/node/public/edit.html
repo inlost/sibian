@@ -31,126 +31,15 @@
             <a href="list.html">取消</a>
         </div>
     </div>
-
+<script src="javascripts/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/main.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
-const postContenElm = document.getElementById('textEditor');
-const postTitleElm = document.querySelector('.post-title');
-const btnSaveElm = document.querySelector('.btn-save');
-const priviewElm = document.querySelector('.priview');
-const post = {
-    title: '',
-    content: ''
+__.edit.initPage();
+
+if(!__.isLogin()){
+    alert('请先登陆')
+    window.location.pathname = '/login.html'
 }
-
-btnSaveElm.addEventListener('click', function(){
-    const checkRst = checkInput('save');
-    if(checkRst.isPassInputCheck){
-        let saveStatus = null;
-        sendRequest(`content=${post.content}&title=${post.title}&type=save`, function(reponse){
-            saveStatus = JSON.parse(reponse);
-
-            if(!saveStatus.success){
-                alert(saveStatus.errorMessage);
-            }else{
-                location.pathname = '/list.html';
-            }
-        });
-    }
-});
-
-let timmer = 0;
-postContenElm.addEventListener('input', function(){
-    const checkRst = checkInput();
-
-    clearTimeout(timmer);
-    console.log(`clear timmer ${timmer}`);
-
-    /*
-        定时器
-        设置定时器 的时间
-        定时器执行 的时间
-        清除定时器 的时间
-    */
-
-    timmer = setTimeout(function(){
-        if(checkRst.isPassInputCheck && checkRst.isChange){
-            sendRequest(`content=${post.content}`, function(reponse){
-                priviewElm.innerHTML = reponse;
-            });
-        }
-    }, 400);
-    console.log(`set timmer ${timmer}`);
-});
-
-function checkInput(type='updatePriview'){
-    const rst = {
-        isChange: false,
-        isPassInputCheck: false
-    };
-
-    const oldContent = post.content;
-
-    getInput();
-    rst.isChange = oldContent !== post.content;
-
-    if(!post.content.length){
-        rst.isPassInputCheck = false;
-    }else{
-        rst.isPassInputCheck = true;
-    }
-
-    if(type === 'save' && rst.isPassInputCheck && !post.title.length){
-        rst.isPassInputCheck = false;
-    }
-
-    return rst;
-}
-
-function getInput(){
-    post.content = postContenElm.value;
-    post.title = postTitleElm.value;
-}
-
-function sendRequest(data, callBack){
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/post', true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-    xhr.onreadystatechange = function(){
-        xhr.readyState === 4 && callBack(xhr.responseText);
-    }
-}
-
-
-
-    //获取查询字符串并转换成数组
-    var arrQuery = window.location.search
-        .replace('?', '')
-        .split('&');
-    //保存处理好的查询参数键值对
-    var queryParams = {};
-    //格式化参数列表
-    arrQuery.forEach((item, index, list) => {
-        var tmpArr = item.split('=');
-        queryParams[tmpArr[0]] = tmpArr[1]
-    })
-    if(queryParams.hasOwnProperty('p')){
-        postTitleElm.value =  decodeURI( queryParams.p );
-
-        var xhr = new XMLHttpRequest();
-        var url = '/post?p=' + queryParams.p;
-        xhr.open('GET', url)
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === 4){
-                let rst = xhr.responseText;
-                rst = JSON.parse(rst);
-                postContenElm.value = rst.data.strMd;
-                priviewElm.innerHTML = rst.data.strHtml;
-            }
-        }
-        xhr.send();
-
-    }
 </script>
 </body>
 </html>

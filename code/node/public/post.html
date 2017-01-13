@@ -3,59 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>post title</title>
+    <style type="text/css" media="all">
+        .needLogin{
+            display:none;
+        }
+        .show{
+            display:block;
+        }
+        .hide{
+            display:none;
+        }
+    </style>
+
     <link rel="stylesheet" href="/stylesheets/github-markdown.css" />
 </head>
 <body>
     <h1>标题</h1>
-    <ul>
+    <ul class="needLogin">
         <li><a href="http://www.baidu.com" class="btn-delete">删除</a></li>
         <li><a class="btn-edit" href="#">编辑</a></li>
     </ul>
     <div class="markdown-body">
         内容
     </div>
+    <script src="javascripts/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/javascripts/main.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
-        //获取查询字符串并转换成数组
-        var arrQuery = window.location.search
-            .replace('?', '')
-            .split('&');
-        //保存处理好的查询参数键值对
-        var queryParams = {};
-        //ajax请求地址
-        var strUrl = '';
+    //ajax请求地址
+    var strUrl = '';
 
-        var xhr = new XMLHttpRequest();
-        var divElm = document.querySelector('div')
-        var titleEml = document.querySelector('h1')
+    //获取url参数列表
+    var queryParams = __.getParams();
 
-        //格式化参数列表
-        arrQuery.forEach((item, index, list) => {
-            var tmpArr = item.split('=');
+    var divElm,
+        titleEml,
+        btnDelete,
+        editLinkElm;
 
-            queryParams[tmpArr[0]] = tmpArr[1]
-        })
-        strUrl = `/post?p=${queryParams.p}`;
 
+    (function initPage(){
+        var linkUrl = '/edit.html?p=' + queryParams.p;
+
+        initDom();
+        getPostConten();
+
+        editLinkElm.href = linkUrl;
         titleEml.innerText = decodeURIComponent(queryParams.p);
 
-        //向服务器请求日志内容
-        xhr.open('GET', strUrl);
-        xhr.send(null);
-        xhr.onreadystatechange = (rst) => {
-            var rst = null;
-            if(xhr.readyState === 4){
-                rst = JSON.parse(xhr.responseText);
-                console.log(rst);
-                if(rst.success){
-                    divElm.innerHTML = rst.data.strHtml;
-                }else{
-                    alert(rst.errorMessage)
-                }
-            }
+        if(__.isLogin()){
+            __.q('.needLogin').classList.add('show')
         }
+    })();
 
-    //获取删除链接
-    var btnDelete = document.querySelector('.btn-delete');
+
+    //缓存DOM对象
+    function initDom(){
+        divElm = document.querySelector('div')
+        console.log(divElm);
+        titleEml = document.querySelector('h1')
+        btnDelete = document.querySelector('.btn-delete');
+        editLinkElm = document.querySelector('.btn-edit')
+    };
+
+    //获取博客内容
+    function getPostConten(){
+        strUrl = `/post?p=${queryParams.p}`;
+        __.sendRequest('get', strUrl, null, function(result){
+            var rst = result;
+            if(rst.success){
+                divElm.innerHTML = rst.data.strHtml;
+            }else{
+                alert(rst.errorMessage)
+            }
+        });
+    }
+
+    //为删除按钮添加处理事件
     btnDelete.addEventListener('click', function(e){
         //阻止a元素的默认事件
         e.preventDefault();
@@ -63,34 +86,14 @@
         //获取XMLHttpRequest的实例
         var xhr = new XMLHttpRequest();
 
-        //open(method-http方法, url-后端服务地址)
-        xhr.open('DELETE', '/post');
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        //send(要提交到后端的数据)
-        xhr.send( `p=${queryParams.p}` )
-
-        //绑定ajax回调函数
-        xhr.onreadystatechange = function(){
-            var rst = null;
-            //收到服务器响应
-            if(xhr.readyState === 4){
-                //把服务器返回的东西转换成对象并保存到变量rst里
-                rst = JSON.parse(xhr.responseText);
-                if(rst.success){
-                    location.pathname = '/list.html';
-                }else{
-                    alert('删除失败')
-                }
+        __.sendRequest('delete', '/post', `p=${queryParams.p}`, function(result){
+            if(result.success){
+                location.pathname = '/list.html';
+            }else{
+                alert('删除失败')
             }
-        }
-    })
-
-
-    //设置编辑的url
-    var linkUrl = '/edit.html?p=' + queryParams.p;
-    var editLinkElm = document.querySelector('.btn-edit')
-    editLinkElm.href = linkUrl;
+        });
+    });
     </script>
 </body>
 </html>

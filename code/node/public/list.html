@@ -3,38 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style type="text/css" media="all">
+        .needLogin{
+            display:none;
+        }
+        .show{
+            display:block;
+        }
+        .hide{
+            display:none;
+        }
+    </style>
 </head>
 <body>
     <h1>文章列表</h1>
     <div>
         
     </div>
-    <ul>
-        <li><a href="edit.html">新增博客</a></li>
+    <ul class="functions">
+        <li class="needLogin"><a href="edit.html">新增博客</a></li>
+        <li class="loginLink"><a href="login.html">登陆</a></li>
     </ul>
+    <script src="/javascripts/main.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
-        var xhr = new XMLHttpRequest();
         var divElm = document.querySelector('div')
-        //向服务器请求日志内容
-        xhr.open('GET', '/');
-        xhr.send(null);
-        xhr.onreadystatechange = (rst) => {
-            console.log(xhr.responseText);
-            if(xhr.readyState === 4){
-                console.log(xhr.responseText);
-                var listObj = JSON.parse(xhr.responseText)
-                console.log(listObj);
+
+        if(__.isLogin()){
+            __.q('.needLogin').classList.add('show');
+            __.q('.loginLink').classList.add('hide');
+        }
+
+        __.sendRequest('get', '/', null, function(result){
+                var listObj = result;
                 listObj.htmls = [];
                 listObj.htmls.push('<ul>');
-
-                listObj.list.forEach((item, index, list) => {
+                listObj.data.forEach((item, index, list) => {
                     listObj.htmls.push(`<li><a href="/post.html?p=${item.name}">${item.name}---${item.create}</a></li>`)
                 });
-
                 listObj.htmls.push('</ul>');
                 divElm.innerHTML = listObj.htmls.join('');
-            }
-        }
+        });
     </script>
 </body>
 </html>
